@@ -1,0 +1,90 @@
+- snowfakery_version: 3
+
+- var: contacts_count
+  value: ${{random_number(min=1, max=3)}}
+
+- var: cases_count
+  value: ${{random_number(min=1, max=3)}}
+
+- object: Contact__c
+  count: ${{random_number(min=1, max=3)}}
+  fields:
+    Name: ${{fake.Name}}
+    FolioId__c:
+      - object: Folio__c
+        fields:
+          UniqueString__c: ${{fake.Uuid4}}
+
+- object: __Contact_Folios
+  count: ${{contacts_count}}
+  friends:
+    - object: Folio__c
+      nickname: contact_folio
+      count: 1
+      fields:
+        UniqueString__c: ${{fake.Uuid4}}
+      friends:
+        - object: Contact__c
+          fields:
+            Name: ${{fake.Name}}
+            FolioId__c:
+              reference: contact_folio
+
+- object: __Contact_Folio_Relationships
+  count: ${{random_number(min=10, max=50)}}
+  friends:
+    - object: Folio__c
+      count: 1
+      fields:
+        UniqueString__c: ${{fake.Uuid4}}
+      friends:
+        - object: Folio_Contact__c
+          count: ${{random_number(min=1, max=3)}}
+          fields:
+            Folio__c:
+              reference: Folio__c
+            Folio_Contact__c:
+              random_reference:
+                to: Contact__c
+                unique: true
+                parent: Folio_Contact__c
+
+- object: __Case_Folios
+  count: ${{cases_count}}
+  friends:
+    - object: Folio__c
+      nickname: case_folio
+      count: 1
+      fields:
+        UniqueString__c: ${{fake.Uuid4}}
+      friends:
+        - object: Case__c
+          fields:
+            Note__c: ${{ fake.paragraph }}
+            FolioId__c:
+              reference: case_folio
+
+- object: __Case_Contact_Folios
+  count: ${{cases_count}}
+  friends:
+    - object: Folio__c
+      nickname: case_contact_folio
+      count: 1
+      fields:
+        UniqueString__c: ${{fake.Uuid4}}
+      friends:
+        - object: Case_Contact__c
+          count: ${{random_number(min=1, max=5)}}
+          fields:
+            FolioId__c:
+              reference: case_contact_folio
+            Folio_Contact__c:
+              random_reference:
+                to: Contact__c
+                unique: true
+                parent: Case_Contact__c
+            Folio_Case__c:
+              random_reference:
+                to: Case__c
+                unique: true
+                parent: Case_Contact__c

@@ -1,0 +1,4 @@
+cumulusci[select]
+docutils
+graphviz
+pydot

@@ -1,0 +1,32 @@
+Insert Folio__c:
+  sf_object: Folio__c
+  fields:
+    - UniqueString__c
+Insert Case__c:
+  sf_object: Case__c
+  fields:
+    - Note__c
+  lookups:
+    FolioId__c:
+      table:
+        - Folio__c
+Insert Contact__c:
+  sf_object: Contact__c
+  fields:
+    - Name
+  lookups:
+    FolioId__c:
+      table:
+        - Folio__c
+Insert Case_Contact__c:
+  sf_object: Case_Contact__c
+  lookups:
+    FolioId__c:
+      table:
+        - Folio__c
+    Folio_Case__c:
+      table:
+        - Case__c
+    Folio_Contact__c:
+      table:
+        - Contact__c

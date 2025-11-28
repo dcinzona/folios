@@ -1,0 +1,32 @@
+minimum_cumulusci_version: "4.6.0"
+project:
+  name: batcher
+  package:
+    name: batcher
+    api_version: "65.0"
+  git:
+    default_branch: "main"
+  source_format: sfdx
+
+tasks:
+  create_data:
+    class_path: cumulusci.tasks.bulkdata.generate_and_load_data_from_yaml.GenerateAndLoadDataFromYaml
+    options:
+      generator_yaml: datasets/batcher.recipe.yml
+  delete_data:
+    class_path: cumulusci.tasks.bulkdata.DeleteData
+    options:
+      objects:
+        - Case_Contact__c
+        - Case__c
+        - Folio_Contact__c
+        - Contact__c
+        - Folio__c
+
+flows:
+  reset_data:
+    steps:
+      0:
+        task: delete_data
+      1:
+        task: create_data
