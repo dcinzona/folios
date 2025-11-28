@@ -1,0 +1,24 @@
+- object: Folio__c
+  count: 3
+  nickname: folio_case_relationship_folio
+  fields:
+    UniqueString__c: ${{fake.Uuid4}}
+
+- object: Case__c
+  count: ${{random_number(min=5, max=8)}}
+  fields:
+    Note__c: ${{ fake.paragraph }}
+    FolioId__c:
+      random_reference:
+        to: folio_case_relationship_folio
+# - object: Folio_Contact__c
+#   count: ${{random_number(min=1, max=3)}}
+#   fields:
+#     Folio__c:
+#       random_reference:
+#         to: folio_contact_relationship_folio
+#     Contact__c:
+#       random_reference:
+#         to: Contact__c
+#         unique: true
+#         parent: Folio_Contact__c

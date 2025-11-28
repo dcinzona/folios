@@ -23,4 +23,4 @@
       random_reference:
         to: Contact__c
         unique: true
-        parent: folio_contact_relationship_folio
+        parent: Folio_Contact__c
