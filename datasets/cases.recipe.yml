@@ -1,3 +1,7 @@
+- snowfakery_version: 3
+
+- include_file: contacts.recipe.yml
+
 - object: Folio__c
   count: 3
   nickname: folio_case_relationship_folio
@@ -5,20 +9,42 @@
     UniqueString__c: ${{fake.Uuid4}}
 
 - object: Case__c
-  count: ${{random_number(min=5, max=8)}}
+  count: 3 # ${{random_number(min=5, max=8)}}
   fields:
     Note__c: ${{ fake.paragraph }}
     FolioId__c:
       random_reference:
         to: folio_case_relationship_folio
-# - object: Folio_Contact__c
-#   count: ${{random_number(min=1, max=3)}}
-#   fields:
-#     Folio__c:
-#       random_reference:
-#         to: folio_contact_relationship_folio
-#     Contact__c:
-#       random_reference:
-#         to: Contact__c
-#         unique: true
-#         parent: Folio_Contact__c
+        unique: true
+
+- object: Case_Contact__c
+  count: ${{random_number(min=3, max=5)}}
+  fields:
+    FolioId__c:
+      - object: Folio__c
+        fields:
+          UniqueString__c: ${{fake.Uuid4}}
+    Folio_Contact__c:
+      random_reference:
+        to: Contact__c
+        unique: true
+        parent: Case_Contact__c
+    Folio_Case__c:
+      random_reference:
+        to: Case__c
+        unique: true
+        parent: Case_Contact__c
+
+- object: Folio_Case_Relationship__c
+  count: ${{random_number(min=3, max=5)}}
+  fields:
+    Folio__c:
+      random_reference:
+        to: Folio__c
+        unique: true
+        parent: Folio__c
+    Case__c:
+      random_reference:
+        to: Case__c
+        unique: true
+        parent: Folio_Case_Relationship__c

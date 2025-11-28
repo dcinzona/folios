@@ -30,3 +30,21 @@ Insert Case_Contact__c:
     Folio_Contact__c:
       table:
         - Contact__c
+Insert Folio_Case_Relationship__c:
+  sf_object: Folio_Case_Relationship__c
+  lookups:
+    Case__c:
+      table:
+        - Case__c
+    Folio__c:
+      table:
+        - Folio__c
+Insert Folio_Contact_Relationship__c:
+  sf_object: Folio_Contact_Relationship__c
+  lookups:
+    Contact__c:
+      table:
+        - Contact__c
+    Folio__c:
+      table:
+        - Folio__c

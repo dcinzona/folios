@@ -9,17 +9,25 @@ project:
   source_format: sfdx
 
 tasks:
-  create_data:
+  load_data:
     class_path: cumulusci.tasks.bulkdata.generate_and_load_data_from_yaml.GenerateAndLoadDataFromYaml
     options:
       generator_yaml: datasets/batcher.recipe.yml
+      num_records: 10000
+      num_records_tablename: Folio__c
+  create_data:
+    class_path: cumulusci.tasks.bulkdata.snowfakery.Snowfakery
+    options:
+      recipe: datasets/batcher.recipe.yml
+      run_until_records_in_org: Folio__c:10000
   delete_data:
     class_path: cumulusci.tasks.bulkdata.DeleteData
     options:
       objects:
         - Case_Contact__c
+        - Folio_Contact_Relationship__c
+        - Folio_Case_Relationship__c
         - Case__c
-        - Folio_Contact__c
         - Contact__c
         - Folio__c
 
