@@ -5,7 +5,7 @@ public with sharing class BatchByUsers implements Database.Batchable<SObject>, D
   private List<Folio_Process_Request__e> folioRequests = new List<Folio_Process_Request__e>();
 
   public Database.QueryLocator start(Database.BatchableContext info) {
-    String query = 'SELECT Id, Name FROM User WHERE IsActive = true';
+    String query = 'SELECT Id, Name, Username FROM User WHERE IsActive = true AND UserType = \'Standard\'';
     return Database.getQueryLocator(query);
   }
 
