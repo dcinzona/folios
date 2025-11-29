@@ -25,7 +25,7 @@ Sharing are handled at the folio level.
 
 (At least that's how I want this to work...)
 
-- Generate mapping.yml (not really needed for this): `cci task run generate_dataset_mapping --org dev --path datasets/mapping.yml`
+- Generate mapping.yml (not really needed for this) <br/>`cci task run generate_dataset_mapping --org dev --path datasets/mapping.yml`
 
 ### Testing recipes
 
